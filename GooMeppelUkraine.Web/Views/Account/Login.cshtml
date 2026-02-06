@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    var returnUrl = (string?)ViewBag.ReturnUrl;
+}
+
+<h2>Login</h2>
+
+<form method="post">
+    <input type="hidden" name="returnUrl" value="@returnUrl" />
+
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input class="form-control" name="email" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input class="form-control" type="password" name="password" />
+    </div>
+
+    <button class="btn btn-primary" type="submit">Sign in</button>
+</form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="text-danger mt-2">
+        @foreach (var err in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@err.ErrorMessage</div>
+        }
+    </div>
+}

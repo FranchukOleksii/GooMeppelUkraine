@@ -1,3 +1,8 @@
+using GooMeppelUkraine.Web.Contexts;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using GooMeppelUkraine.Web.Infrastructure;
+
 namespace GooMeppelUkraine.Web
 {
     public class Program
@@ -8,6 +13,22 @@ namespace GooMeppelUkraine.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+                options => { 
+                    options.SignIn.RequireConfirmedAccount = false;
+                })
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+            });
 
             var app = builder.Build();
 
@@ -24,11 +45,14 @@ namespace GooMeppelUkraine.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            IdentitySeeder.SeedAsync(app.Services, app.Configuration).GetAwaiter().GetResult();
 
             app.Run();
         }

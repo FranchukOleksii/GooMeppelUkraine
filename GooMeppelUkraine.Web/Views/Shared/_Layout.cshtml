@@ -25,6 +25,52 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                            <li class="nav-item">
+        <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Private" asp-action="Index">Private</a>
+    </li>
+
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Admin" asp-action="CreateUser">Admin: Create User</a>
+            </li>
+        }
+
+        <li class="nav-item">
+            <span class="navbar-text me-2">@User.Identity?.Name</span>
+        </li>
+
+        <li class="nav-item">
+            <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
+                <button type="submit" class="nav-link btn btn-link p-0">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+    }
+@*                         <li class="nav-item">
+                            @if (User.Identity?.IsAuthenticated ?? false)
+                            {
+                                <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
+                                    <button type="submit" class="btn btn-link">Logout</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <a asp-controller="Account" asp-action="Login">Login</a>
+                            }
+                        </li> *@
+
                     </ul>
                 </div>
             </div>
