@@ -1,0 +1,33 @@
+﻿@model List<GooMeppelUkraine.Web.Models.Article>
+
+<h2>Manage News</h2>
+
+<a class="btn btn-primary mb-3" asp-action="Create">Create</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Lang</th>
+            <th>Published</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var a in Model)
+        {
+            <tr>
+                <td>@a.Title</td>
+                <td>@a.Language</td>
+                <td>@a.IsPublished</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@a.Id">Edit</a>
+
+                    <form method="post" asp-action="Delete" asp-route-id="@a.Id" class="d-inline">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

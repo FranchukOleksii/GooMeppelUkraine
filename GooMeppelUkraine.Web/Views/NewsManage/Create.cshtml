@@ -1,0 +1,37 @@
+﻿@model GooMeppelUkraine.Web.Models.Article
+
+<h2>Create</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input class="form-control" asp-for="Title" />
+        <span class="text-danger" asp-validation-for="Title"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Content</label>
+        <textarea class="form-control" asp-for="Content" rows="8"></textarea>
+        <span class="text-danger" asp-validation-for="Content"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Language</label>
+        <select class="form-select" asp-for="Language">
+            <option value="uk">uk</option>
+            <option value="en">en</option>
+            <option value="nl">nl</option>
+        </select>
+    </div>
+
+    <div class="form-check mb-3">
+        <input class="form-check-input" asp-for="IsPublished" />
+        <label class="form-check-label">Published</label>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

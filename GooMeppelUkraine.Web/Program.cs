@@ -30,7 +30,18 @@ namespace GooMeppelUkraine.Web
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
+            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             var app = builder.Build();
+
+            var supportedCultures = new[] { "uk", "en", "nl" };
+
+            var localizationOptions = new RequestLocalizationOptions()
+                .SetDefaultCulture("uk")
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures);
+
+            app.UseRequestLocalization(localizationOptions);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
