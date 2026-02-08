@@ -1,8 +1,74 @@
-﻿@{
+﻿@* @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> *@
+
+@model GooMeppelUkraine.Web.Models.HomeVm
+
+<!-- HERO / SLIDER (поки статично) -->
+<div class="p-4 mb-4 bg-light rounded">
+    <h1 class="mb-2">Isala / Goo Meppel Ukraine</h1>
+    <p class="mb-0">Temporary shelter and support.</p>
 </div>
+
+<!-- STATS -->
+@if (Model.Stats.Any())
+{
+    <h2 class="h4 mt-4">Numbers</h2>
+    <div class="row g-3">
+        @foreach (var s in Model.Stats)
+        {
+            <div class="col-12 col-md-4">
+                <div class="border rounded p-3 h-100">
+                    <div class="display-6">@s.Value</div>
+                    <div class="text-muted">@s.Label</div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<!-- TEAM -->
+@if (Model.Team.Any())
+{
+    <h2 class="h4 mt-4">Who we are</h2>
+    <div class="row g-3">
+        @foreach (var t in Model.Team)
+        {
+            <div class="col-12 col-md-4">
+                <div class="card h-100">
+                    @if (!string.IsNullOrWhiteSpace(t.PhotoUrl))
+                    {
+                        <img class="card-img-top" src="@t.PhotoUrl" alt="@t.Name" />
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title mb-1">@t.Name</h5>
+                        <div class="text-muted">@t.Role</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<!-- PARTNERS -->
+@if (Model.Partners.Any())
+{
+    <h2 class="h4 mt-4">Partners</h2>
+    <ul class="list-group">
+        @foreach (var p in Model.Partners)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>@p.Name</span>
+                @if (!string.IsNullOrWhiteSpace(p.Url))
+                {
+                    <a href="@p.Url" target="_blank"><img class="card-img-top" src="@p.LogoUrl" alt="@p.Name"/></a>
+                }
+            </li>
+        }
+    </ul>
+}

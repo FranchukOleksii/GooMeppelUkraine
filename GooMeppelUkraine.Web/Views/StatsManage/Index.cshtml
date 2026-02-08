@@ -1,0 +1,31 @@
+﻿@model List<GooMeppelUkraine.Web.Models.Stat>
+
+<h2>Manage Stats (@ViewBag.Lang)</h2>
+<a class="btn btn-primary mb-3" asp-action="Create">Create</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Value</th>
+            <th>Label</th>
+            <th>Language</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.Value</td>
+                <td>@s.Label</td>
+                <td>@s.Language</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@s.Id">Edit</a>
+                    <form method="post" asp-action="Delete" asp-route-id="@s.Id" class="d-inline">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

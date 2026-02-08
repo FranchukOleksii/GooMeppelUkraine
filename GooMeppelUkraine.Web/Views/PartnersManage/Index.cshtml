@@ -1,0 +1,36 @@
+﻿@model List<GooMeppelUkraine.Web.Models.Partner>
+
+<h2>Manage Partners (@ViewBag.Lang)</h2>
+<a class="btn btn-primary mb-3" asp-action="Create">Create</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Logo</th>
+            <th>Lang</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Name</td>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(p.LogoUrl))
+                    {
+                        <img class="card-img-top" src="@p.LogoUrl" alt="@p.Name" />
+                    }
+                </td>
+                <td>@p.Language</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@p.Id">Edit</a>
+                    <form method="post" asp-action="Delete" asp-route-id="@p.Id" class="d-inline">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,38 @@
+﻿@model List<GooMeppelUkraine.Web.Models.TeamMember>
+
+<h2>Manage Team (@ViewBag.Lang)</h2>
+<a class="btn btn-primary mb-3" asp-action="Create">Create</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Photo</th>
+            <th>Lang</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tm in Model)
+        {
+            <tr>
+                <td>@tm.Name</td>
+                <td>@tm.Role</td>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(tm.PhotoUrl))
+                    {
+                        <img class="card-img-top" src="@tm.PhotoUrl" alt="@tm.Name" />
+                    }
+                </td>
+                <td>@tm.Language</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@tm.Id">Edit</a>
+                    <form method="post" asp-action="Delete" asp-route-id="@tm.Id" class="d-inline">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

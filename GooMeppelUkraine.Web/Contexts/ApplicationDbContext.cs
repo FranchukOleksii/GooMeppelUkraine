@@ -9,6 +9,9 @@ namespace GooMeppelUkraine.Web.Contexts
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Article> Articles => Set<Article>();
+        public DbSet<Stat> Stats => Set<Stat>();
+        public DbSet<Partner> Partners => Set<Partner>();
+        public DbSet<TeamMember> TeamMembers => Set<TeamMember>();
 
     }
 }

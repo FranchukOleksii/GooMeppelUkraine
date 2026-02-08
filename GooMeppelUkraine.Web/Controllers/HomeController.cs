@@ -1,26 +1,29 @@
 using System.Diagnostics;
+using System.Globalization;
+using GooMeppelUkraine.Web.Contexts;
 using GooMeppelUkraine.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GooMeppelUkraine.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _db;
+        public HomeController(ApplicationDbContext db) => _db = db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public async Task<IActionResult> Index()
         {
-            _logger = logger;
-        }
+            var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+            var vm = new HomeVm
+            {
+                Stats = await _db.Stats.Where(x => x.Language == lang).ToListAsync(),
+                Team = await _db.TeamMembers.Where(x => x.Language == lang).ToListAsync(),
+                Partners = await _db.Partners.Where(x => x.Language == lang).ToListAsync(),
+            };
 
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(vm);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
