@@ -16,6 +16,7 @@
             <th>Id</th>
             <th>Title</th>
             <th>Lang</th>
+            <th>Slug</th>
             <th>Published</th>
             <th>Created (UTC)</th>
             <th style="width: 260px;">Actions</th>
@@ -28,6 +29,7 @@
                 <td>@a.Id</td>
                 <td>@a.Title</td>
                 <td>@a.Language</td>
+                <td>@a.Slug</td>
                 <td>
                     @if (a.IsPublished)
                     {
@@ -44,9 +46,10 @@
                         Edit
                     </a>
 
-                    <a asp-action="Details" asp-route-id="@a.Id" class="btn btn-sm btn-outline-secondary">
-                        Preview
-                    </a>
+                    <a class="btn btn-sm btn-secondary"
+                       asp-controller="NewsManage"
+                       asp-action="Preview"
+                       asp-route-id="@a.Id">Preview</a>
 
                     @if (a.IsPublished)
                     {
@@ -71,12 +74,10 @@
                         </form>
                     }
 
-                    <a asp-action="Delete"
-                       asp-route-id="@a.Id"
-                       class="btn btn-sm btn-outline-danger"
-                       onclick="return confirm('Delete this article?');">
-                        Delete
-                    </a>
+                    <form asp-action="Delete" asp-route-id="@a.Id" method="post" class="d-inline">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+
                 </td>
             </tr>
         }

@@ -5,8 +5,8 @@ namespace GooMeppelUkraine.Web.Controllers
 {
     public class LanguageController : Controller
     {
-        [HttpPost]
-        public IActionResult Set(string culture, string returnUrl)
+        [HttpGet]
+        public IActionResult Set(string culture, string? returnUrl = null)
         {
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
@@ -14,7 +14,10 @@ namespace GooMeppelUkraine.Web.Controllers
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
 
-            return LocalRedirect(returnUrl);
+            if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+                return LocalRedirect(returnUrl);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -10,6 +10,16 @@
     </div>
 
     <div class="mb-3">
+        <label class="form-label">Meta Title</label>
+        <input class="form-control" asp-for="MetaTitle" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Meta Description</label>
+        <textarea class="form-control" asp-for="MetaDescription" rows="2"></textarea>
+    </div>
+
+    <div class="mb-3">
         <label class="form-label">Content</label>
         <textarea class="form-control" asp-for="Content" rows="8"></textarea>
         <span class="text-danger" asp-validation-for="Content"></span>

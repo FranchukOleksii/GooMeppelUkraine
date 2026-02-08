@@ -14,7 +14,6 @@ namespace GooMeppelUkraine.Web.Controllers
             _db = db;
         }
 
-        // /News
         public async Task<IActionResult> Index()
         {
             var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
@@ -27,21 +26,23 @@ namespace GooMeppelUkraine.Web.Controllers
             return View(items);
         }
 
-        // /News/Details/5
-        public async Task<IActionResult> Details(int id)
+        [HttpGet("/news/{slug}")]
+        public async Task<IActionResult> Details(string slug)
         {
             var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
-            var item = await _db.Articles.FirstOrDefaultAsync(a =>
-                a.Id == id &&
+            var article = await _db.Articles.FirstOrDefaultAsync(a =>
                 a.IsPublished &&
-                a.Language == lang
+                a.Language == lang &&
+                a.Slug == slug
             );
 
-            if (item == null)
-                return NotFound();
+            if (article == null) return NotFound();
 
-            return View(item);
+            ViewData["MetaTitle"] = string.IsNullOrWhiteSpace(article.MetaTitle) ? article.Title : article.MetaTitle;
+            ViewData["MetaDescription"] = article.MetaDescription;
+
+            return View(article);
         }
     }
 }

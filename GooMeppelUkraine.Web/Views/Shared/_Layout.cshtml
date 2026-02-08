@@ -3,7 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - GooMeppelUkraine.Web</title>
+    
+    <title>@(ViewData["MetaTitle"] ?? "Goo Meppel Ukraine")</title>
+
+    @if (ViewData["MetaDescription"] is string desc && !string.IsNullOrWhiteSpace(desc))
+    {
+        <meta name="description" content="@desc" />
+    }
+
+    @RenderSection("Head", required: false)
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GooMeppelUkraine.Web.styles.css" asp-append-version="true" />
@@ -22,26 +31,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Private" asp-action="Index">Private</a>
-                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="News" asp-action="Index">News</a>
                         </li>
 
-                        @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+                        @if (User.Identity?.IsAuthenticated == true && (User.IsInRole("Admin") || User.IsInRole("Editor")))
                         {
-                            <li class="nav-item"><a class="nav-link" asp-controller="NewsManage" asp-action="Index">Manage News</a></li>
-                            <li class="nav-item"><a class="nav-link" asp-controller="StatsManage" asp-action="Index">Manage Stats</a></li>
-                            <li class="nav-item"><a class="nav-link" asp-controller="TeamManage" asp-action="Index">Manage Team</a></li>
-                            <li class="nav-item"><a class="nav-link" asp-controller="PartnersManage" asp-action="Index">Manage Partners</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Manage
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/NewsManage">News</a></li>
+                                    <li><a class="dropdown-item" href="/StatsManage">Stats</a></li>
+                                    <li><a class="dropdown-item" href="/TeamManage">Team</a></li>
+                                    <li><a class="dropdown-item" href="/PartnersManage">Partners</a></li>
+                                </ul>
+                            </li>
                         }
-
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
                             @if (User.IsInRole("Admin"))
@@ -67,14 +76,23 @@
                                 <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
-                        
-                        <li class="nav-item">
-                            <form method="post" asp-controller="Language" asp-action="Set" class="d-inline">
-                                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-                                <button class="btn btn-sm btn-outline-secondary" name="culture" value="uk">UK</button>
-                                <button class="btn btn-sm btn-outline-secondary" name="culture" value="en">EN</button>
-                                <button class="btn btn-sm btn-outline-secondary" name="culture" value="nl">NL</button>
-                            </form>
+
+                        @using Microsoft.AspNetCore.Http.Extensions
+                        @{
+                            var returnUrl = Context.Request.Path + Context.Request.QueryString;
+                            var cur = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper();
+                        }
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @cur
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="@Url.Action("Set","Language", new { culture="uk", returnUrl })">UK</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Set","Language", new { culture="en", returnUrl })">EN</a></li>
+                                <li><a class="dropdown-item" href="@Url.Action("Set","Language", new { culture="nl", returnUrl })">NL</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -89,7 +107,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2026 - GooMeppelUkraine.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2026 - GooMeppelUkraine.Web
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

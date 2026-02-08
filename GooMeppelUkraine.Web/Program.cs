@@ -47,6 +47,7 @@ namespace GooMeppelUkraine.Web
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
+
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -58,6 +59,13 @@ namespace GooMeppelUkraine.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseStatusCodePagesWithReExecute("/Home/NotFound");
+
+            app.MapControllerRoute(
+                name: "news-slug",
+                pattern: "news/{slug}",
+                defaults: new { controller = "News", action = "Details" });
 
             app.MapControllerRoute(
                 name: "default",

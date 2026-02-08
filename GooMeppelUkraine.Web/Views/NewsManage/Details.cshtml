@@ -1,5 +1,9 @@
 ﻿@model GooMeppelUkraine.Web.Models.Article
 
+@section Head {
+    <link rel="canonical" href="@ViewData["CanonicalUrl"]" />
+}
+
 <h2 class="mb-2">@Model.Title</h2>
 
 <div class="mb-3 text-muted">

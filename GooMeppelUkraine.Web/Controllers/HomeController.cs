@@ -4,6 +4,7 @@ using GooMeppelUkraine.Web.Contexts;
 using GooMeppelUkraine.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GooMeppelUkraine.Web.Controllers
 {
@@ -30,6 +31,13 @@ namespace GooMeppelUkraine.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Route("Home/NotFound")]
+        public IActionResult NotFoundPage()
+        {
+            Response.StatusCode = 404;
+            return View("NotFound"); 
         }
     }
 }

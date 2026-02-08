@@ -6,7 +6,7 @@
     @foreach (var a in Model)
     {
         <li class="list-group-item">
-            <a asp-action="Details" asp-route-id="@a.Id">@a.Title</a>
+            <a href="/news/@a.Slug">@a.Title</a>
             <div class="text-muted small">@a.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm")</div>
         </li>
     }

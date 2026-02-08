@@ -38,9 +38,13 @@ namespace GooMeppelUkraine.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Article model)
         {
+            model.Slug = SlugHelper.Generate(model.Title);
+            ModelState.Remove(nameof(Article.Slug));
+
             if (!ModelState.IsValid) return View(model);
 
             model.CreatedAtUtc = DateTime.UtcNow;
+            model.Slug = SlugHelper.Generate(model.Title);
             _db.Articles.Add(model);
             await _db.SaveChangesAsync();
 
@@ -58,6 +62,9 @@ namespace GooMeppelUkraine.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Article model)
         {
+            model.Slug = SlugHelper.Generate(model.Title);
+            ModelState.Remove(nameof(Article.Slug));
+
             if (!ModelState.IsValid) return View(model);
 
             var item = await _db.Articles.FindAsync(model.Id);
@@ -67,12 +74,14 @@ namespace GooMeppelUkraine.Web.Controllers
             item.Content = model.Content;
             item.Language = model.Language;
             item.IsPublished = model.IsPublished;
+            item.Slug = SlugHelper.Generate(model.Title);
 
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             var item = await _db.Articles.FindAsync(id);
@@ -117,12 +126,16 @@ namespace GooMeppelUkraine.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Preview(int id)
         {
-            var item = await _db.Articles.FindAsync(id);
-            if (item == null) return NotFound();
+            var article = await _db.Articles.FirstOrDefaultAsync(a => a.Id == id);
+            if (article == null) return NotFound();
 
-            return View(item);
+            ViewData["MetaTitle"] = string.IsNullOrWhiteSpace(article.MetaTitle) ? article.Title : article.MetaTitle;
+            ViewData["MetaDescription"] = article.MetaDescription;
+
+            return View("~/Views/News/Details.cshtml", article);
         }
+
     }
 }
