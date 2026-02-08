@@ -1,0 +1,18 @@
+﻿@model GooMeppelUkraine.Web.Models.Article
+
+<h2 class="mb-2">@Model.Title</h2>
+
+<div class="mb-3 text-muted">
+    <span class="me-3">Lang: <b>@Model.Language</b></span>
+    <span class="me-3">Status: <b>@(Model.IsPublished ? "Published" : "Draft")</b></span>
+    <span>Created: <b>@Model.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm")</b> (UTC)</span>
+</div>
+
+<div class="border rounded p-3" style="white-space: pre-wrap;">
+    @Model.Content
+</div>
+
+<div class="mt-3">
+    <a class="btn btn-outline-secondary" asp-action="Index">Back</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+</div>

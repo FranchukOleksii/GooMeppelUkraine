@@ -18,4 +18,6 @@ public class Article
     public bool IsPublished { get; set; } = false;
 
     public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
+
+    public DateTime? PublishedAtUtc { get; set; }
 }

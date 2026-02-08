@@ -83,5 +83,46 @@ namespace GooMeppelUkraine.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Publish(int id)
+        {
+            var item = await _db.Articles.FindAsync(id);
+            if (item == null) return NotFound();
+
+            if (!item.IsPublished)
+            {
+                item.IsPublished = true;
+                item.PublishedAtUtc = DateTime.UtcNow;
+                await _db.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Unpublish(int id)
+        {
+            var item = await _db.Articles.FindAsync(id);
+            if (item == null) return NotFound();
+
+            if (item.IsPublished)
+            {
+                item.IsPublished = false;
+                item.PublishedAtUtc = null;
+                await _db.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var item = await _db.Articles.FindAsync(id);
+            if (item == null) return NotFound();
+
+            return View(item);
+        }
     }
 }

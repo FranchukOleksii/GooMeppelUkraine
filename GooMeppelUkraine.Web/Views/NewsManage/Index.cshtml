@@ -1,31 +1,82 @@
-﻿@model List<GooMeppelUkraine.Web.Models.Article>
+﻿@model IEnumerable<GooMeppelUkraine.Web.Models.Article>
 
-<h2>Manage News</h2>
+@{
+    ViewData["Title"] = "Manage Articles";
+}
 
-<a class="btn btn-primary mb-3" asp-action="Create">Create</a>
+<h1 class="mb-3">Articles</h1>
 
-<table class="table">
-    <thead>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create new article</a>
+</p>
+
+<table class="table table-bordered table-striped align-middle">
+    <thead class="table-light">
         <tr>
+            <th>Id</th>
             <th>Title</th>
             <th>Lang</th>
             <th>Published</th>
-            <th></th>
+            <th>Created (UTC)</th>
+            <th style="width: 260px;">Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var a in Model)
         {
             <tr>
+                <td>@a.Id</td>
                 <td>@a.Title</td>
                 <td>@a.Language</td>
-                <td>@a.IsPublished</td>
-                <td class="text-end">
-                    <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@a.Id">Edit</a>
+                <td>
+                    @if (a.IsPublished)
+                    {
+                        <span class="badge bg-success">Published</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Draft</span>
+                    }
+                </td>
+                <td>@a.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@a.Id" class="btn btn-sm btn-outline-primary">
+                        Edit
+                    </a>
 
-                    <form method="post" asp-action="Delete" asp-route-id="@a.Id" class="d-inline">
-                        <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
-                    </form>
+                    <a asp-action="Details" asp-route-id="@a.Id" class="btn btn-sm btn-outline-secondary">
+                        Preview
+                    </a>
+
+                    @if (a.IsPublished)
+                    {
+                        <form method="post"
+                              asp-action="Unpublish"
+                              asp-route-id="@a.Id"
+                              class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-warning">
+                                Unpublish
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post"
+                              asp-action="Publish"
+                              asp-route-id="@a.Id"
+                              class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-success">
+                                Publish
+                            </button>
+                        </form>
+                    }
+
+                    <a asp-action="Delete"
+                       asp-route-id="@a.Id"
+                       class="btn btn-sm btn-outline-danger"
+                       onclick="return confirm('Delete this article?');">
+                        Delete
+                    </a>
                 </td>
             </tr>
         }

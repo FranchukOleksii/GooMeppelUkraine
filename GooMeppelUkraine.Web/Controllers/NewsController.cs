@@ -21,7 +21,7 @@ namespace GooMeppelUkraine.Web.Controllers
 
             var items = await _db.Articles
                 .Where(a => a.IsPublished && a.Language == lang)
-                .OrderByDescending(a => a.CreatedAtUtc)
+                .OrderByDescending(a => a.PublishedAtUtc ?? a.CreatedAtUtc)
                 .ToListAsync();
 
             return View(items);
