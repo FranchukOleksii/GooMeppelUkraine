@@ -3,6 +3,7 @@
 <h2>Create Team</h2>
 
 <form method="post">
+    @Html.AntiForgeryToken()
     <div class="mb-3">
         <label class="form-label">Name</label>
         <input class="form-control" asp-for="Name" />
@@ -23,9 +24,9 @@
     <div class="mb-3">
         <label class="form-label">Language</label>
         <select class="form-select" asp-for="Language">
-            <option value="uk">uk</option>
-            <option value="en">en</option>
-            <option value="nl">nl</option>
+            <option value="uk">UA</option>
+            <option value="en">EN</option>
+            <option value="nl">NL</option>
         </select>
     </div>
 

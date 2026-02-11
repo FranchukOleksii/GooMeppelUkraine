@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="@System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -78,7 +78,11 @@
                         }
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                @System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()
+                                @(
+                                    System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "uk"
+                                        ? "UA"
+                                        : System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()
+                                )
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
@@ -86,7 +90,7 @@
                                         @Html.AntiForgeryToken()
                                         <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
                                         <input type="hidden" name="culture" value="uk" />
-                                        <button type="submit" class="btn btn-link dropdown-item px-0">UK</button>
+                                        <button type="submit" class="btn btn-link dropdown-item px-0">UA</button>
                                     </form>
                                 </li>
                                 <li>
