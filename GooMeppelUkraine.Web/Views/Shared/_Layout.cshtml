@@ -76,22 +76,35 @@
                                 <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
-
-                        @using Microsoft.AspNetCore.Http.Extensions
-                        @{
-                            var returnUrl = Context.Request.Path + Context.Request.QueryString;
-                            var cur = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper();
-                        }
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                @cur
+                                @System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()
                             </a>
-
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="@Url.Action("Set","Language", new { culture="uk", returnUrl })">UK</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("Set","Language", new { culture="en", returnUrl })">EN</a></li>
-                                <li><a class="dropdown-item" href="@Url.Action("Set","Language", new { culture="nl", returnUrl })">NL</a></li>
+                                <li>
+                                    <form method="post" asp-controller="Language" asp-action="Set" class="px-3 py-1">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+                                        <input type="hidden" name="culture" value="uk" />
+                                        <button type="submit" class="btn btn-link dropdown-item px-0">UK</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form method="post" asp-controller="Language" asp-action="Set" class="px-3 py-1">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+                                        <input type="hidden" name="culture" value="en" />
+                                        <button type="submit" class="btn btn-link dropdown-item px-0">EN</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form method="post" asp-controller="Language" asp-action="Set" class="px-3 py-1">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+                                        <input type="hidden" name="culture" value="nl" />
+                                        <button type="submit" class="btn btn-link dropdown-item px-0">NL</button>
+                                    </form>
+                                </li>
                             </ul>
                         </li>
                     </ul>

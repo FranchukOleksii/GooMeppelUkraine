@@ -1,7 +1,8 @@
 using GooMeppelUkraine.Web.Contexts;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using GooMeppelUkraine.Web.Infrastructure;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GooMeppelUkraine.Web
 {
@@ -12,7 +13,10 @@ namespace GooMeppelUkraine.Web
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

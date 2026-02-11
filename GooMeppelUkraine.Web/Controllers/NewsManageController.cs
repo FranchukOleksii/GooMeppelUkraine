@@ -41,6 +41,7 @@ namespace GooMeppelUkraine.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Article model)
         {
             model.Slug = await _slugService.GenerateUniqueSlugAsync(model.Title, model.Language);
@@ -68,6 +69,7 @@ namespace GooMeppelUkraine.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Article model)
         {
             model.Slug = SlugHelper.Generate(model.Title);
@@ -97,9 +99,16 @@ namespace GooMeppelUkraine.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
+        {
+            var item = await _db.Articles.FindAsync(id);
+            if (item == null) return NotFound();
+            return View(item);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var item = await _db.Articles.FindAsync(id);
             if (item == null) return NotFound();
@@ -107,12 +116,11 @@ namespace GooMeppelUkraine.Web.Controllers
             _db.Articles.Remove(item);
             await _db.SaveChangesAsync();
 
-            InvalidateNewsCache(item.Language, item.Slug);
-
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Publish(int id)
         {
             var item = await _db.Articles.FindAsync(id);
@@ -131,6 +139,7 @@ namespace GooMeppelUkraine.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Unpublish(int id)
         {
             var item = await _db.Articles.FindAsync(id);
