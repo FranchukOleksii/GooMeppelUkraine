@@ -34,6 +34,8 @@ namespace GooMeppelUkraine.Web
 
             builder.Services.AddMemoryCache();
 
+            builder.Services.AddScoped<SlugService>();
+
             var app = builder.Build();
 
             var supportedCultures = new[] { "uk", "en", "nl" };

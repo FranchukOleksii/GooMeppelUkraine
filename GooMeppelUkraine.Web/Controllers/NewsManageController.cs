@@ -15,11 +15,13 @@ namespace GooMeppelUkraine.Web.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly IMemoryCache _cache;
+        private readonly SlugService _slugService;
 
-        public NewsManageController(ApplicationDbContext db, IMemoryCache cache)
+        public NewsManageController(ApplicationDbContext db, IMemoryCache cache, SlugService slugService)
         {
             _db = db;
             _cache = cache;
+            _slugService = slugService;
         }
 
         public async Task<IActionResult> Index()
@@ -41,13 +43,14 @@ namespace GooMeppelUkraine.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Article model)
         {
-            model.Slug = SlugHelper.Generate(model.Title);
+            model.Slug = await _slugService.GenerateUniqueSlugAsync(model.Title, model.Language);
             ModelState.Remove(nameof(Article.Slug));
 
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) 
+                return View(model);
 
             model.CreatedAtUtc = DateTime.UtcNow;
-            model.Slug = SlugHelper.Generate(model.Title);
+
             _db.Articles.Add(model);
             await _db.SaveChangesAsync();
 
@@ -70,16 +73,22 @@ namespace GooMeppelUkraine.Web.Controllers
             model.Slug = SlugHelper.Generate(model.Title);
             ModelState.Remove(nameof(Article.Slug));
 
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) 
+                return View(model);
 
             var item = await _db.Articles.FindAsync(model.Id);
-            if (item == null) return NotFound();
+            if (item == null) 
+                return NotFound();
 
             item.Title = model.Title;
             item.Content = model.Content;
             item.Language = model.Language;
             item.IsPublished = model.IsPublished;
-            item.Slug = SlugHelper.Generate(model.Title);
+            
+            item.MetaTitle = model.MetaTitle;
+            item.MetaDescription = model.MetaDescription;
+
+            item.Slug = await _slugService.GenerateUniqueSlugAsync(item.Title, item.Language, excludeArticleId: item.Id);
 
             await _db.SaveChangesAsync();
 

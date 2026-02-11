@@ -13,5 +13,14 @@ namespace GooMeppelUkraine.Web.Contexts
         public DbSet<Partner> Partners => Set<Partner>();
         public DbSet<TeamMember> TeamMembers => Set<TeamMember>();
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<Article>()
+                .HasIndex(a => new { a.Slug, a.Language })
+                .IsUnique();
+        }
+
     }
 }
