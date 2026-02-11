@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using GooMeppelUkraine.Web.Models;
 
 namespace GooMeppelUkraine.Web.Controllers;
 
@@ -17,28 +18,53 @@ public class AccountController : Controller
     public IActionResult Login(string? returnUrl = null)
     {
         ViewBag.ReturnUrl = returnUrl;
-        return View();
+        return View(new LoginVm());
     }
 
+    //[HttpPost]
+    //public async Task<IActionResult> Login(string email, string password, string? returnUrl = null)
+    //{
+    //    var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
+
+    //    if (result.Succeeded)
+    //        return Redirect(returnUrl ?? "/");
+
+    //    ModelState.AddModelError("", "Invalid login attempt.");
+    //    ViewBag.ReturnUrl = returnUrl;
+    //    return View();
+    //}
     [HttpPost]
-    public async Task<IActionResult> Login(string email, string password, string? returnUrl = null)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Login(LoginVm model, string? returnUrl = null)
     {
-        var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
+        if (!ModelState.IsValid)
+            return View(model);
 
-        if (result.Succeeded)
-            return Redirect(returnUrl ?? "/");
+        var result = await _signInManager.PasswordSignInAsync(
+            model.Email,
+            model.Password,
+            model.RememberMe,
+            lockoutOnFailure: false);
 
-        ModelState.AddModelError("", "Invalid login attempt.");
-        ViewBag.ReturnUrl = returnUrl;
-        return View();
+        if (!result.Succeeded)
+        {
+            ModelState.AddModelError("", "Invalid login attempt.");
+            return View(model);
+        }
+
+        if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+            return LocalRedirect(returnUrl);
+
+        return RedirectToAction("Index", "Home");
     }
 
     [Authorize]
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
-        return Redirect("/");
+        return RedirectToAction("Index", "Home");
     }
 
     [HttpGet]

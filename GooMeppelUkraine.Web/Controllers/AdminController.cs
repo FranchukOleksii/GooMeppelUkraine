@@ -20,55 +20,82 @@ namespace GooMeppelUkraine.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateUser()
-        {
-            return View(new AdminCreateUserVm { Role = Roles.User });
-        }
+        public IActionResult CreateUser() => View(new AdminCreateUserVm());
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(AdminCreateUserVm vm)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateUser(AdminCreateUserVm model)
         {
-            if (!ModelState.IsValid)
-                return View(vm);
+            if (!ModelState.IsValid) return View(model);
 
-            if (!await _roleManager.RoleExistsAsync(vm.Role))
+            if (!await _roleManager.RoleExistsAsync(model.Role))
             {
-                ModelState.AddModelError(nameof(vm.Role), "Role does not exist.");
-                return View(vm);
+                ModelState.AddModelError(nameof(model.Role), "Role does not exist.");
+                return View(model);
             }
 
-            var existing = await _userManager.FindByEmailAsync(vm.Email);
-            if (existing != null)
+            var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
             {
-                ModelState.AddModelError(nameof(vm.Email), "User already exists.");
-                return View(vm);
+                foreach (var e in result.Errors)
+                    ModelState.AddModelError(string.Empty, e.Description);
+                return View(model);
             }
 
-            var user = new IdentityUser
-            {
-                UserName = vm.Email,
-                Email = vm.Email,
-                EmailConfirmed = true
-            };
+            if (!string.IsNullOrWhiteSpace(model.Role))
+                await _userManager.AddToRoleAsync(user, model.Role);
 
-            var create = await _userManager.CreateAsync(user, vm.Password);
-            if (!create.Succeeded)
-            {
-                foreach (var e in create.Errors)
-                    ModelState.AddModelError("", $"{e.Code}: {e.Description}");
-                return View(vm);
-            }
-
-            var addRole = await _userManager.AddToRoleAsync(user, vm.Role);
-            if (!addRole.Succeeded)
-            {
-                foreach (var e in addRole.Errors)
-                    ModelState.AddModelError("", $"{e.Code}: {e.Description}");
-                return View(vm);
-            }
-
-            TempData["Success"] = $"User created: {vm.Email} ({vm.Role})";
+            TempData["Ok"] = "User created.";
             return RedirectToAction(nameof(CreateUser));
         }
     }
+
+        //[HttpPost]
+        //public async Task<IActionResult> CreateUser(AdminCreateUserVm vm)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return View(vm);
+
+        //    if (!await _roleManager.RoleExistsAsync(vm.Role))
+        //    {
+        //        ModelState.AddModelError(nameof(vm.Role), "Role does not exist.");
+        //        return View(vm);
+        //    }
+
+        //    var existing = await _userManager.FindByEmailAsync(vm.Email);
+        //    if (existing != null)
+        //    {
+        //        ModelState.AddModelError(nameof(vm.Email), "User already exists.");
+        //        return View(vm);
+        //    }
+
+        //    var user = new IdentityUser
+        //    {
+        //        UserName = vm.Email,
+        //        Email = vm.Email,
+        //        EmailConfirmed = true
+        //    };
+
+        //    var create = await _userManager.CreateAsync(user, vm.Password);
+        //    if (!create.Succeeded)
+        //    {
+        //        foreach (var e in create.Errors)
+        //            ModelState.AddModelError("", $"{e.Code}: {e.Description}");
+        //        return View(vm);
+        //    }
+
+        //    var addRole = await _userManager.AddToRoleAsync(user, vm.Role);
+        //    if (!addRole.Succeeded)
+        //    {
+        //        foreach (var e in addRole.Errors)
+        //            ModelState.AddModelError("", $"{e.Code}: {e.Description}");
+        //        return View(vm);
+        //    }
+
+        //    TempData["Success"] = $"User created: {vm.Email} ({vm.Role})";
+        //    return RedirectToAction(nameof(CreateUser));
+        //}
+    //}
 }

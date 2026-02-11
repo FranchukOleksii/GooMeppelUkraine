@@ -30,11 +30,14 @@ namespace GooMeppelUkraine.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Stat model)
         {
             if (!ModelState.IsValid) return View(model);
+            
             _db.Stats.Add(model);
             await _db.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -47,6 +50,7 @@ namespace GooMeppelUkraine.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Stat model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -58,12 +62,23 @@ namespace GooMeppelUkraine.Web.Controllers
             item.Value = model.Value;
             item.Language = model.Language;
 
+            _db.Stats.Update(item);
             await _db.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
+        {
+            var item = await _db.Stats.FindAsync(id);
+            if (item == null) return NotFound();
+            return View(item);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var item = await _db.Stats.FindAsync(id);
             if (item == null) return NotFound();

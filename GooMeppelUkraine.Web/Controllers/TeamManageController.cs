@@ -30,6 +30,7 @@ namespace GooMeppelUkraine.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(TeamMember model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -47,6 +48,7 @@ namespace GooMeppelUkraine.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(TeamMember model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -59,12 +61,22 @@ namespace GooMeppelUkraine.Web.Controllers
             item.PhotoUrl = model.PhotoUrl;
             item.Language = model.Language;
 
+            _db.TeamMembers.Update(item);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
+        {
+            var item = await _db.TeamMembers.FindAsync(id);
+            if (item == null) return NotFound();
+            return View(item);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var item = await _db.TeamMembers.FindAsync(id);
             if (item == null) return NotFound();

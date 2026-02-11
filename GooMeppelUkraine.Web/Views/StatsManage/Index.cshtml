@@ -21,9 +21,7 @@
                 <td>@s.Language</td>
                 <td class="text-end">
                     <a class="btn btn-sm btn-outline-secondary" asp-action="Edit" asp-route-id="@s.Id">Edit</a>
-                    <form method="post" asp-action="Delete" asp-route-id="@s.Id" class="d-inline">
-                        <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
-                    </form>
+                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@s.Id">Delete</a>
                 </td>
             </tr>
         }
