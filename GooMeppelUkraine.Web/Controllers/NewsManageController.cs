@@ -4,6 +4,7 @@ using GooMeppelUkraine.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System.Globalization;
 
 namespace GooMeppelUkraine.Web.Controllers 
@@ -13,10 +14,12 @@ namespace GooMeppelUkraine.Web.Controllers
     public class NewsManageController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly IMemoryCache _cache;
 
-        public NewsManageController(ApplicationDbContext db)
+        public NewsManageController(ApplicationDbContext db, IMemoryCache cache)
         {
             _db = db;
+            _cache = cache;
         }
 
         public async Task<IActionResult> Index()
@@ -48,6 +51,8 @@ namespace GooMeppelUkraine.Web.Controllers
             _db.Articles.Add(model);
             await _db.SaveChangesAsync();
 
+            InvalidateNewsCache(model.Language, model.Slug);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -77,6 +82,9 @@ namespace GooMeppelUkraine.Web.Controllers
             item.Slug = SlugHelper.Generate(model.Title);
 
             await _db.SaveChangesAsync();
+
+            InvalidateNewsCache(item.Language, item.Slug);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -89,6 +97,8 @@ namespace GooMeppelUkraine.Web.Controllers
 
             _db.Articles.Remove(item);
             await _db.SaveChangesAsync();
+
+            InvalidateNewsCache(item.Language, item.Slug);
 
             return RedirectToAction(nameof(Index));
         }
@@ -104,6 +114,8 @@ namespace GooMeppelUkraine.Web.Controllers
                 item.IsPublished = true;
                 item.PublishedAtUtc = DateTime.UtcNow;
                 await _db.SaveChangesAsync();
+
+                InvalidateNewsCache(item.Language, item.Slug);
             }
 
             return RedirectToAction(nameof(Index));
@@ -120,6 +132,8 @@ namespace GooMeppelUkraine.Web.Controllers
                 item.IsPublished = false;
                 item.PublishedAtUtc = null;
                 await _db.SaveChangesAsync();
+
+                InvalidateNewsCache(item.Language, item.Slug);
             }
 
             return RedirectToAction(nameof(Index));
@@ -137,5 +151,11 @@ namespace GooMeppelUkraine.Web.Controllers
             return View("~/Views/News/Details.cshtml", article);
         }
 
+        private void InvalidateNewsCache(string lang, string? slug = null)
+        {
+            _cache.Remove($"news_index_{lang}");
+            if (!string.IsNullOrWhiteSpace(slug))
+                _cache.Remove($"news_details_{lang}_{slug}");
+        }
     }
 }

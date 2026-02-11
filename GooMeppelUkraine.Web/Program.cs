@@ -32,6 +32,8 @@ namespace GooMeppelUkraine.Web
 
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+            builder.Services.AddMemoryCache();
+
             var app = builder.Build();
 
             var supportedCultures = new[] { "uk", "en", "nl" };
