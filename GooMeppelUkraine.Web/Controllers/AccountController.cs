@@ -21,18 +21,6 @@ public class AccountController : Controller
         return View(new LoginVm());
     }
 
-    //[HttpPost]
-    //public async Task<IActionResult> Login(string email, string password, string? returnUrl = null)
-    //{
-    //    var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
-
-    //    if (result.Succeeded)
-    //        return Redirect(returnUrl ?? "/");
-
-    //    ModelState.AddModelError("", "Invalid login attempt.");
-    //    ViewBag.ReturnUrl = returnUrl;
-    //    return View();
-    //}
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginVm model, string? returnUrl = null)

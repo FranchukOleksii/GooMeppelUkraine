@@ -29,15 +29,12 @@ namespace GooMeppelUkraine.Web.Controllers
             sb.AppendLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
             sb.AppendLine(@"<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">");
 
-            // Home (опційно)
             sb.AppendLine("  <url>");
             sb.AppendLine($"    <loc>{host}/</loc>");
             sb.AppendLine("  </url>");
 
             foreach (var u in urls)
             {
-                // Публічний роут /news/{slug} — у тебе без prefix по мові.
-                // Тому просто додаємо /news/slug
                 sb.AppendLine("  <url>");
                 sb.AppendLine($"    <loc>{host}/news/{u.Slug}</loc>");
                 sb.AppendLine($"    <lastmod>{u.CreatedAtUtc:yyyy-MM-dd}</lastmod>");

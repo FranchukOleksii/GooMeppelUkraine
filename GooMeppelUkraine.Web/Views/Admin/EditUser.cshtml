@@ -1,0 +1,31 @@
+﻿@model GooMeppelUkraine.Web.Models.AdminUserVm
+@{
+    var roles = ViewBag.AllRoles as List<string>;
+}
+
+<h2>Edit User</h2>
+
+<div class="mb-3">
+    <strong>Email:</strong> @Model.Email
+</div>
+
+<form asp-action="EditUser" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <div class="mb-3">
+        <label>Select role</label>
+        <select name="role" class="form-select">
+            @foreach (var r in roles)
+            {
+                <option value="@r"
+                        selected="@(Model.Roles.Contains(r) ? "selected" : null)">
+                    @r
+                </option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Users" class="btn btn-secondary">Cancel</a>
+</form>

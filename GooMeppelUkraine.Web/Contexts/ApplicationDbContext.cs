@@ -12,6 +12,7 @@ namespace GooMeppelUkraine.Web.Contexts
         public DbSet<Stat> Stats => Set<Stat>();
         public DbSet<Partner> Partners => Set<Partner>();
         public DbSet<TeamMember> TeamMembers => Set<TeamMember>();
+        public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -19,6 +20,10 @@ namespace GooMeppelUkraine.Web.Contexts
 
             builder.Entity<Article>()
                 .HasIndex(a => new { a.Slug, a.Language })
+                .IsUnique();
+
+            builder.Entity<UserProfile>()
+                .HasIndex(p => p.UserId)
                 .IsUnique();
         }
 

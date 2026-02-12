@@ -86,7 +86,8 @@ namespace GooMeppelUkraine.Web.Controllers
             item.Content = model.Content;
             item.Language = model.Language;
             item.IsPublished = model.IsPublished;
-            
+            item.ImageUrl = model.ImageUrl;
+
             item.MetaTitle = model.MetaTitle;
             item.MetaDescription = model.MetaDescription;
 

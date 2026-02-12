@@ -19,55 +19,68 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GooMeppelUkraine.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">GooMeppelUkraine</a>
+
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation" id="mainNavbar" class="collapse navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
 
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="News" asp-action="Index">News</a>
                         </li>
 
+
                         @if (User.Identity?.IsAuthenticated == true && (User.IsInRole("Admin") || User.IsInRole("Editor")))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                     Manage
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="/NewsManage">News</a></li>
-                                    <li><a class="dropdown-item" href="/StatsManage">Stats</a></li>
-                                    <li><a class="dropdown-item" href="/TeamManage">Team</a></li>
-                                    <li><a class="dropdown-item" href="/PartnersManage">Partners</a></li>
+                                    <li><a class="dropdown-item" asp-controller="NewsManage" asp-action="Index">News</a></li>
+                                    <li><a class="dropdown-item" asp-controller="PartnersManage" asp-action="Index">Partners</a></li>
+                                    <li><a class="dropdown-item" asp-controller="TeamManage" asp-action="Index">Team</a></li>
+                                    <li><a class="dropdown-item" asp-controller="StatsManage" asp-action="Index">Stats</a></li>
                                 </ul>
                             </li>
                         }
-                        @if (User.Identity?.IsAuthenticated ?? false)
+
+                        @if (User.IsInRole("Admin"))
                         {
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Admin" asp-action="CreateUser">Admin: Create User</a>
-                                </li>
-                            }
-
                             <li class="nav-item">
-                                <span class="navbar-text me-2">@User.Identity?.Name</span>
+                                <a class="nav-link" asp-controller="Admin" asp-action="Users">Users</a>
                             </li>
+                        }
 
-                            <li class="nav-item">
-                                <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
-                                    <button type="submit" class="nav-link btn btn-link p-0">Logout</button>
-                                </form>
+
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                    Account
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li>
+                                        <form asp-controller="Account" asp-action="Logout" method="post" class="px-3">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-link dropdown-item px-0">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
                             </li>
                         }
                         else
@@ -76,51 +89,14 @@
                                 <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                         }
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                @(
-                                    System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "uk"
-                                        ? "UA"
-                                        : System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()
-                                )
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <form method="post" asp-controller="Language" asp-action="Set" class="px-3 py-1">
-                                        @Html.AntiForgeryToken()
-                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
-                                        <input type="hidden" name="culture" value="uk" />
-                                        <button type="submit" class="btn btn-link dropdown-item px-0">UA</button>
-                                    </form>
-                                </li>
-                                <li>
-                                    <form method="post" asp-controller="Language" asp-action="Set" class="px-3 py-1">
-                                        @Html.AntiForgeryToken()
-                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
-                                        <input type="hidden" name="culture" value="en" />
-                                        <button type="submit" class="btn btn-link dropdown-item px-0">EN</button>
-                                    </form>
-                                </li>
-                                <li>
-                                    <form method="post" asp-controller="Language" asp-action="Set" class="px-3 py-1">
-                                        @Html.AntiForgeryToken()
-                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
-                                        <input type="hidden" name="culture" value="nl" />
-                                        <button type="submit" class="btn btn-link dropdown-item px-0">NL</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <main class="container">
+        @RenderBody()
+    </main>
 
     <footer class="border-top footer text-muted">
         <div class="container">

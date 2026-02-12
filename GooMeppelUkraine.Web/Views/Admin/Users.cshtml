@@ -1,0 +1,27 @@
+﻿@model List<GooMeppelUkraine.Web.Models.AdminUserVm>
+
+<h2>Users</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Roles</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@string.Join(", ", user.Roles)</td>
+                <td>
+                    <a asp-action="EditUser"
+                       asp-route-id="@user.Id"
+                       class="btn btn-sm btn-primary">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

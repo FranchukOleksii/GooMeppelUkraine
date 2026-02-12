@@ -29,6 +29,12 @@
     </div>
 
     <div class="mb-3">
+        <label class="form-label">Image URL</label>
+        <input class="form-control" asp-for="ImageUrl" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
         <label class="form-label">Language</label>
         <select class="form-select" asp-for="Language">
             <option value="uk">UA</option>

@@ -30,4 +30,7 @@ public class Article
     [MaxLength(160)]
     public string? MetaDescription { get; set; }
 
+    [MaxLength(500)]
+    public string? ImageUrl { get; set; }
+
 }
