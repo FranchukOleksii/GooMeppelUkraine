@@ -25,3 +25,14 @@ body {
 .card-title {
     line-height: 1.2;
 }
+
+.slider-img {
+    height: 380px;
+    object-fit: cover;
+}
+
+@media (max-width: 576px) {
+    .slider-img {
+        height: 220px;
+    }
+}

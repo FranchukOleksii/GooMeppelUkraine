@@ -1,15 +1,42 @@
 ﻿@model GooMeppelUkraine.Web.Models.HomeVm
 
-<!-- HERO / SLIDER (поки статично) -->
-<div class="p-4 mb-4 bg-light rounded">
-    <h1 class="mb-2">Isala / Goo Meppel Ukraine</h1>
-    <p class="mb-0">Temporary shelter and support.</p>
+<!-- SLIDER -->
+<div id="homeCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <div class="carousel-inner rounded shadow-sm">
+        <div class="carousel-item active">
+            <img src="~/img/slider/slide-1.jpg" class="d-block w-100 slider-img" alt="Slide 1">
+        </div>
+        <div class="carousel-item">
+            <img src="~/img/slider/slide-2.jpg" class="d-block w-100 slider-img" alt="Slide 2">
+        </div>
+        <div class="carousel-item">
+            <img src="~/img/slider/slide-3.jpg" class="d-block w-100 slider-img" alt="Slide 3">
+        </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
+
+<!-- Who we are -->
+
 
 <!-- STATS -->
 @if (Model.Stats.Any())
 {
-    <h2 class="h4 mt-4">Numbers</h2>
+    <h2 class="h4 mt-4">Our work on numbers</h2>
     <div class="row g-3">
         @foreach (var s in Model.Stats)
         {
@@ -26,7 +53,7 @@
 <!-- TEAM -->
 @if (Model.Team.Any())
 {
-    <h2 class="h4 mt-4">Who we are</h2>
+    <h2 class="h4 mt-4">Our team</h2>
     <div class="row g-3">
         @foreach (var t in Model.Team)
         {
@@ -49,7 +76,7 @@
 <!-- PARTNERS -->
 @if (Model.Partners.Any())
 {
-    <h2 class="h4 mt-4">Partners</h2>
+    <h2 class="h4 mt-4">Our partners</h2>
     <ul class="list-group">
         @foreach (var p in Model.Partners)
         {

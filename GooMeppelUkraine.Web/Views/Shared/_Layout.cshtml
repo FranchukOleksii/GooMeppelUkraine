@@ -90,6 +90,43 @@
                             </li>
                         }
                     </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @(
+                                    System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "uk"
+                                    ? "UA"
+                                    : System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper()
+                                )
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <form method="post" asp-controller="Language" asp-action="Set" class="px-3 py-1">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+                                        <input type="hidden" name="culture" value="uk" />
+                                        <button type="submit" class="btn btn-link dropdown-item px-0">UA</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form method="post" asp-controller="Language" asp-action="Set" class="px-3 py-1">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+                                        <input type="hidden" name="culture" value="en" />
+                                        <button type="submit" class="btn btn-link dropdown-item px-0">EN</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form method="post" asp-controller="Language" asp-action="Set" class="px-3 py-1">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+                                        <input type="hidden" name="culture" value="nl" />
+                                        <button type="submit" class="btn btn-link dropdown-item px-0">NL</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
