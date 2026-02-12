@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
+    @RenderSection("Head", required: false)
+
     <title>@(ViewData["MetaTitle"] ?? "Goo Meppel Ukraine")</title>
 
     @if (ViewData["MetaDescription"] is string desc && !string.IsNullOrWhiteSpace(desc))
@@ -11,7 +13,10 @@
         <meta name="description" content="@desc" />
     }
 
-    @RenderSection("Head", required: false)
+    @if (ViewData["Canonical"] is string canonical && !string.IsNullOrWhiteSpace(canonical))
+    {
+        <link rel="canonical" href="@canonical" />
+    }
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -25,7 +30,7 @@
 
                 <button class="navbar-toggler" type="button"
                         data-bs-toggle="collapse" data-bs-target="#mainNavbar"
-                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation" id="mainNavbar" class="collapse navbar-collapse">
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
