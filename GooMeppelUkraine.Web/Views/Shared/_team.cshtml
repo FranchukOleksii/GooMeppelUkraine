@@ -1,0 +1,24 @@
+﻿@model IEnumerable<GooMeppelUkraine.Web.Models.TeamMember>
+
+<!-- TEAM -->
+@if (Model != null && Model.Any())
+{
+@*     <h2 class="h4 mt-4">Our team</h2> *@
+    <div class="row g-3">
+        @foreach (var t in Model)
+        {
+            <div class="col-12 col-md-4">
+                <div class="card h-100">
+                    @if (!string.IsNullOrWhiteSpace(t.PhotoUrl))
+                    {
+                        <img class="card-img-top" src="@t.PhotoUrl" alt="@t.Name" />
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title mb-1">@t.Name</h5>
+                        <div class="text-muted">@t.Role</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

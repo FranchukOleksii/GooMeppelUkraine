@@ -1,0 +1,19 @@
+﻿@model IEnumerable<GooMeppelUkraine.Web.Models.Partner>
+
+<!-- PARTNERS -->
+@if (Model != null && Model.Any())
+{
+@*     <h2 class="h4 mt-4">Our partners</h2> *@
+    <ul class="list-group">
+        @foreach (var p in Model)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>@p.Name</span>
+                @if (!string.IsNullOrWhiteSpace(p.Url))
+                {
+                    <a href="@p.Url" target="_blank"><img class="card-img-top" src="@p.LogoUrl" alt="@p.Name" /></a>
+                }
+            </li>
+        }
+    </ul>
+}

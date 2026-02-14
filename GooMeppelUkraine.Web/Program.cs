@@ -3,6 +3,8 @@ using GooMeppelUkraine.Web.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace GooMeppelUkraine.Web
 {
@@ -13,10 +15,13 @@ namespace GooMeppelUkraine.Web
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews(options =>
-            {
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            });
+            builder.Services
+                .AddControllersWithViews(options =>
+                {
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                })
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization();
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -42,12 +47,17 @@ namespace GooMeppelUkraine.Web
 
             var app = builder.Build();
 
-            var supportedCultures = new[] { "uk", "en", "nl" };
+            var supportedCultures = new[] { "uk-UA", "en", "nl" };
 
             var localizationOptions = new RequestLocalizationOptions()
-                .SetDefaultCulture("uk")
+                .SetDefaultCulture("uk-UA")
                 .AddSupportedCultures(supportedCultures)
                 .AddSupportedUICultures(supportedCultures);
+
+            localizationOptions.RequestCultureProviders = new IRequestCultureProvider[]
+            {
+                new CookieRequestCultureProvider()
+            };
 
             app.UseRequestLocalization(localizationOptions);
 

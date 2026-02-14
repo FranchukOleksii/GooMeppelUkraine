@@ -36,3 +36,8 @@ body {
         height: 220px;
     }
 }
+
+.text-justify {
+    text-align: justify;
+    text-justify: inter-word;
+}
