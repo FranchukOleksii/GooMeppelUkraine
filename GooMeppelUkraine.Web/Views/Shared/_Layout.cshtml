@@ -3,21 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
     @RenderSection("Head", required: false)
-
     <title>@(ViewData["MetaTitle"] ?? "Goo Meppel Ukraine")</title>
-
     @if (ViewData["MetaDescription"] is string desc && !string.IsNullOrWhiteSpace(desc))
     {
         <meta name="description" content="@desc" />
     }
-
     @if (ViewData["Canonical"] is string canonical && !string.IsNullOrWhiteSpace(canonical))
     {
         <link rel="canonical" href="@canonical" />
     }
-
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GooMeppelUkraine.Web.styles.css" asp-append-version="true" />
@@ -27,13 +22,11 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
             <div class="container">
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">GooMeppelUkraine</a>
-
                 <button class="navbar-toggler" type="button"
                         data-bs-toggle="collapse" data-bs-target="#mainNavbar"
                         aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="mainNavbar">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -42,8 +35,6 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="News" asp-action="Index">News</a>
                         </li>
-
-
                         @if (User.Identity?.IsAuthenticated == true && (User.IsInRole("Admin") || User.IsInRole("Editor")))
                         {
                             <li class="nav-item dropdown">
@@ -58,17 +49,13 @@
                                 </ul>
                             </li>
                         }
-
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Admin" asp-action="Users">Users</a>
                             </li>
                         }
-
-
                     </ul>
-
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
@@ -139,7 +126,6 @@
     <main class="container">
         @RenderBody()
     </main>
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2026 - GooMeppelUkraine.Web

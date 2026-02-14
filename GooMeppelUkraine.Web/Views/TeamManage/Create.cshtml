@@ -1,7 +1,10 @@
 ﻿@model GooMeppelUkraine.Web.Models.TeamMember
+@{
+    ViewData["Title"] = "Create team";
+    ViewData["MetaDescription"] = "Long-term shelter for Ukrainian refugees in Meppel.";
+}
 
 <h2>Create Team</h2>
-
 <form method="post">
     @Html.AntiForgeryToken()
     <div class="mb-3">
@@ -9,18 +12,15 @@
         <input class="form-control" asp-for="Name" />
         <span class="text-danger" asp-validation-for="Name"></span>
     </div>
-
     <div class="mb-3">
         <label class="form-label">Role</label>
         <input class="form-control" asp-for="Role" />
         <span class="text-danger" asp-validation-for="Role"></span>
     </div>
-
     <div class="mb-3">
         <label class="form-label">PhotoUrl</label>
         <input class="form-control" asp-for="PhotoUrl" />
     </div>
-
     <div class="mb-3">
         <label class="form-label">Language</label>
         <select class="form-select" asp-for="Language">
@@ -29,7 +29,6 @@
             <option value="nl">NL</option>
         </select>
     </div>
-
     <button class="btn btn-primary" type="submit">Save</button>
 </form>
 

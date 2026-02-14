@@ -1,15 +1,12 @@
 ﻿@model GooMeppelUkraine.Web.Models.Article
-
 @section Head {
     <link rel="canonical" href="@ViewData["CanonicalUrl"]" />
 }
 
 <h2>@Model.Title</h2>
 <div class="text-muted mb-3">@Model.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm")</div>
-
 @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
 {
     <img src="@Model.ImageUrl" class="img-fluid rounded mb-3" alt="@Model.Title" />
 }
-
 <div style="white-space: pre-wrap;">@Model.Content</div>

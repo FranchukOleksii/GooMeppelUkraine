@@ -11,7 +11,6 @@ namespace GooMeppelUkraine.Web.Infrastructure
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-            // Roles
             var roles = new[] { Roles.Admin, Roles.Editor, Roles.User };
             foreach (var role in roles)
             {
@@ -19,7 +18,6 @@ namespace GooMeppelUkraine.Web.Infrastructure
                     await roleManager.CreateAsync(new IdentityRole(role));
             }
 
-            // Admin
             var adminEmail = config["Admin:Email"];
             var adminPassword = config["Admin:Password"];
 

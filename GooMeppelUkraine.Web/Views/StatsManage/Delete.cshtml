@@ -1,10 +1,13 @@
 ﻿@model Stat
-<h1>Delete</h1>
+@{
+    ViewData["Title"] = "Delete stat";
+    ViewData["MetaDescription"] = "Long-term shelter for Ukrainian refugees in Meppel.";
+}
 
+<h1>Delete</h1>
 <div class="alert alert-danger">
     Delete Stat: <strong>@Model.Label</strong>?
 </div>
-
 <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
     @Html.AntiForgeryToken()
     <button class="btn btn-danger" type="submit">Yes, delete</button>

@@ -1,8 +1,11 @@
 ﻿@model List<GooMeppelUkraine.Web.Models.Stat>
+@{
+    ViewData["Title"] = "Stat page";
+    ViewData["MetaDescription"] = "Long-term shelter for Ukrainian refugees in Meppel.";
+}
 
 <h2>Manage Stats (@ViewBag.Lang)</h2>
 <a class="btn btn-primary mb-3" asp-action="Create">Create</a>
-
 <table class="table">
     <thead>
         <tr>

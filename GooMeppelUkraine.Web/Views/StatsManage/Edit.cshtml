@@ -1,22 +1,22 @@
 ﻿@model GooMeppelUkraine.Web.Models.Stat
+@{
+    ViewData["Title"] = "Edit stat";
+    ViewData["MetaDescription"] = "Long-term shelter for Ukrainian refugees in Meppel.";
+}
 
 <h2>Edit Stats</h2>
-
 <form method="post">
     @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Id" />
-
     <div class="mb-3">
         <label class="form-label">Value</label>
         <input class="form-control" asp-for="Value" />
         <span class="text-danger" asp-validation-for="Value"></span>
     </div>
-
     <div class="mb-3">
         <label class="form-label">Label</label>
         <input class="form-control" asp-for="Label" />
     </div>
-
     <div class="mb-3">
         <label class="form-label">Language</label>
         <select class="form-select" asp-for="Language">
@@ -25,10 +25,8 @@
             <option value="nl">NL</option>
         </select>
     </div>
-
     <button class="btn btn-primary" type="submit">Save</button>
 </form>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

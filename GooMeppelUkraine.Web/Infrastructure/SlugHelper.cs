@@ -49,7 +49,6 @@ namespace GooMeppelUkraine.Web.Infrastructure
 
             var s = input.Trim().ToLowerInvariant();
 
-            // translit UA
             var sb = new StringBuilder(s.Length);
             foreach (var ch in s)
             {

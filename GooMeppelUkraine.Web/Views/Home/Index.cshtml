@@ -1,11 +1,12 @@
 ﻿@model GooMeppelUkraine.Web.Models.HomeVm
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer L
-
-<!-- Slider -->
+@{
+    ViewData["Title"] = "Home";
+    ViewData["MetaDescription"] = "Long-term shelter for Ukrainian refugees in Meppel.";
+}
 @await Html.PartialAsync("_HomeSlider")
 
-<!-- Intro text -->
 <section class="container my-4">
     <div class="p-4 rounded bg-light">
         <h1 class="display-6 mb-3 fw-bold text-center">@L["Hero_Title"]</h1>
@@ -14,47 +15,29 @@
         <p class="mb-0 text-justify">@L["Intro_P2"]</p>
     </div>
 </section>
-
-<!-- Mayor -->
 <section class="container my-5 text-center">
-
-    <!-- IMAGE -->
     <div class="mb-3">
         <img src="~/img/burgemeester.jpg"
              class="img-fluid rounded shadow"
              style="max-width: 400px;"
              alt="@L["Mayor_Name"]" />
     </div>
-
-    <!-- NAME -->
     <h4 class="fw-bold mb-1">@L["Mayor_Name"]</h4>
-
-    <!-- TITLE -->
     <div class="text-muted mb-4">@L["Mayor_Title"]</div>
-
-    <!-- CONTENT -->
     <div class="text-start">
         <h5 class="fw-bold">@L["Section_AboutLongTitle"]</h5>
         <p class="text-justify">@L["Section_AboutText"]</p>
         <p class="text-justify">@L["Intro_P2"]</p>
     </div>
-
 </section>
-
-
-<!-- 9) Stats -->
 <section class="container my-4">
     <h2 class="h4 fw-bold mb-3 text-center">@L["Section_Stats"]</h2>
     @await Html.PartialAsync("_stats", Model.Stats)
 </section>
-
-<!-- 10) News -->
 <section class="container my-4">
     <h2 class="h4 fw-bold mb-3 text-center">@L["Section_Team"]</h2>
     @await Html.PartialAsync("_team", Model.Team)
 </section>
-
-<!-- 11) Partners -->
 <section class="container my-4">
     <h2 class="h4 fw-bold mb-3 text-center">@L["Section_Partners"]</h2>
     @await Html.PartialAsync("_partners", Model.Partners)

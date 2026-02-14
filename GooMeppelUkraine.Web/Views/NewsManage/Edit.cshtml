@@ -1,39 +1,32 @@
 ﻿@model GooMeppelUkraine.Web.Models.Article
 
 <h2>Edit</h2>
-
 <form method="post">
     @Html.AntiForgeryToken()
     <input type="hidden" asp-for="Id" />
-
     <div class="mb-3">
         <label class="form-label">Title</label>
         <input class="form-control" asp-for="Title" />
         <span class="text-danger" asp-validation-for="Title"></span>
     </div>
-
     <div class="mb-3">
         <label class="form-label">Meta Title</label>
         <input class="form-control" asp-for="MetaTitle" />
     </div>
-
     <div class="mb-3">
         <label class="form-label">Meta Description</label>
         <textarea class="form-control" asp-for="MetaDescription" rows="2"></textarea>
     </div>
-
     <div class="mb-3">
         <label class="form-label">Content</label>
         <textarea class="form-control" asp-for="Content" rows="8"></textarea>
         <span class="text-danger" asp-validation-for="Content"></span>
     </div>
-
     <div class="mb-3">
         <label class="form-label">Image URL</label>
         <input class="form-control" asp-for="ImageUrl" />
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
-
     <div class="mb-3">
         <label class="form-label">Language</label>
         <select class="form-select" asp-for="Language">
@@ -42,10 +35,8 @@
             <option value="nl">NL</option>
         </select>
     </div>
-
     <button class="btn btn-primary" type="submit">Save</button>
 </form>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

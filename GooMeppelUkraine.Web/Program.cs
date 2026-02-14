@@ -45,6 +45,12 @@ namespace GooMeppelUkraine.Web
 
             builder.Services.AddScoped<SlugService>();
 
+            builder.Services.AddHsts(options =>
+            {
+                options.MaxAge = TimeSpan.FromDays(365);
+                options.IncludeSubDomains = true;
+            });
+
             var app = builder.Build();
 
             var supportedCultures = new[] { "uk-UA", "en", "nl" };
@@ -61,24 +67,26 @@ namespace GooMeppelUkraine.Web
 
             app.UseRequestLocalization(localizationOptions);
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
+            
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseStatusCodePagesWithReExecute("/Home/NotFound");
+
+            app.MapControllerRoute(
+                name: "sitemap",
+                pattern: "sitemap.xml",
+                defaults: new { controller = "Sitemap", action = "Index" });
 
             app.MapControllerRoute(
                 name: "news-slug",

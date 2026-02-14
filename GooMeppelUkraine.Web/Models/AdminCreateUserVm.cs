@@ -13,4 +13,3 @@ public class AdminCreateUserVm
     [Required]
     public string Role { get; set; } = default!;
 }
-

@@ -1,24 +1,23 @@
 ﻿@model GooMeppelUkraine.Web.Models.UserProfile
+@{
+    ViewData["Title"] = "User profile";
+    ViewData["MetaDescription"] = "Long-term shelter for Ukrainian refugees in Meppel.";
+}
 
 <h2>My Profile</h2>
-
 @if (TempData["Ok"] != null)
 {
     <div class="alert alert-success">@TempData["Ok"]</div>
 }
-
 <div class="mb-3">
     <strong>Email:</strong> @ViewBag.Email
 </div>
-
 <form method="post">
     @Html.AntiForgeryToken()
-
     <div class="mb-3">
         <label class="form-label">Display name</label>
         <input class="form-control" asp-for="DisplayName" />
         <span class="text-danger" asp-validation-for="DisplayName"></span>
     </div>
-
     <button class="btn btn-primary" type="submit">Save</button>
 </form>

@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<GooMeppelUkraine.Web.Models.TeamMember>
 
-<!-- TEAM -->
 @if (Model != null && Model.Any())
 {
-@*     <h2 class="h4 mt-4">Our team</h2> *@
     <div class="row g-3">
         @foreach (var t in Model)
         {

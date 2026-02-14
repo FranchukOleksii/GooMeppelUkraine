@@ -1,16 +1,10 @@
 ﻿@model GooMeppelUkraine.Web.Models.AdminCreateUserVm
 
-@{
-    ViewData["Title"] = "Create user";
-}
-
 <h2>Create user (Admin)</h2>
-
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">@TempData["Success"]</div>
 }
-
 <form method="post">
     @Html.AntiForgeryToken()
     <div class="mb-3">
@@ -18,13 +12,11 @@
         <input class="form-control" asp-for="Email" />
         <span class="text-danger" asp-validation-for="Email"></span>
     </div>
-
     <div class="mb-3">
         <label class="form-label">Password</label>
         <input class="form-control" asp-for="Password" type="password" />
         <span class="text-danger" asp-validation-for="Password"></span>
     </div>
-
     <div class="mb-3">
         <label class="form-label">Role</label>
         <select class="form-select" asp-for="Role">
@@ -34,10 +26,8 @@
         </select>
         <span class="text-danger" asp-validation-for="Role"></span>
     </div>
-
     <button class="btn btn-primary" type="submit">Create</button>
 </form>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

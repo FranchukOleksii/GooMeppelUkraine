@@ -1,15 +1,9 @@
 ﻿@model IEnumerable<GooMeppelUkraine.Web.Models.Article>
 
-@{
-    ViewData["Title"] = "Manage Articles";
-}
-
 <h1 class="mb-3">Articles</h1>
-
 <p>
     <a asp-action="Create" class="btn btn-primary">Create new article</a>
 </p>
-
 <table class="table table-bordered table-striped align-middle">
     <thead class="table-light">
         <tr>
@@ -43,9 +37,7 @@
                 <td>@a.CreatedAtUtc.ToString("yyyy-MM-dd HH:mm")</td>
                 <td class="text-nowrap">
                     <a class="btn btn-sm btn-outline-primary" asp-action="Edit" asp-route-id="@a.Id">Edit</a>
-
                     <a class="btn btn-sm btn-outline-secondary" asp-action="Preview" asp-route-id="@a.Id">Preview</a>
-
                     @if (a.IsPublished)
                     {
                         <form asp-action="Unpublish" asp-route-id="@a.Id" method="post" class="d-inline">
@@ -60,7 +52,6 @@
                             <button type="submit" class="btn btn-sm btn-success">Publish</button>
                         </form>
                     }
-
                     <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@a.Id">Delete</a>
                 </td>
             </tr>

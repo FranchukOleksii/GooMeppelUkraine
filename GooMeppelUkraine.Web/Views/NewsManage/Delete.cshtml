@@ -1,15 +1,9 @@
 ﻿@model GooMeppelUkraine.Web.Models.Article
 
-@{
-    ViewData["Title"] = "Delete article";
-}
-
 <h1>Delete</h1>
-
 <div class="alert alert-danger">
     Are you sure you want to delete: <strong>@Model.Title</strong>?
 </div>
-
 <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-danger">Yes, delete</button>
