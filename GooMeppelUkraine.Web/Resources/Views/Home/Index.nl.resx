@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Mayor_Name" xml:space="preserve">
-    <value>Arjen Maathuis</value>
+    <value>Voornaam Achternaam</value>
   </data>
   <data name="Mayor_Title" xml:space="preserve">
-    <value>Burgemeester gemeente Meppel</value>
+    <value>Functie</value>
   </data>
   <data name="Hero_Title" xml:space="preserve">
-    <value>Langdurige opvang voor Oekraïense ontheemden</value>
+    <value>Hoofdtitel</value>
   </data>
   <data name="Intro_P1" xml:space="preserve">
-    <value>GooMeppelUkraine is een tijdelijke wijk in de gemeente Meppel waar tot medio 2026 maximaal 700 Oekraïners kunnen wonen die zijn gevlucht voor de oorlog. Enkele maanden na het begin van de oorlog zijn we samen met de overheid gestart met de verbouwing van het voormalige ziekenhuis “Isala” tot woonlocatie aan de rand van onze stad. Ik ben blij dat we mensen een plek kunnen bieden waar zij comfortabel kunnen wonen, werken en naar school kunnen gaan tot medio 2026, als dat nodig is. GooMeppelUkraine staat voor de droom van een veilig Oekraïne zonder oorlog — met kansen, perspectief en een positieve toekomst.</value>
+    <value>Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst Hoofdtekst </value>
   </data>
   <data name="Intro_P2" xml:space="preserve">
-    <value>Op deze website geven we algemene informatie over GooMeppelUkraine. (Toekomstige) bewoners kunnen inloggen in het besloten gedeelte en daar relevante informatie, documenten en antwoorden op vragen vinden.</value>
+    <value>Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst Secundaire tekst </value>
   </data>
   <data name="Section_AboutTitle" xml:space="preserve">
-    <value>Over GooMeppelUkraine</value>
+    <value>Over web page</value>
   </data>
   <data name="Section_AboutLongTitle" xml:space="preserve">
-    <value>Langdurige opvang voor Oekraïense ontheemden</value>
+    <value>Ondertitel</value>
   </data>
   <data name="Section_AboutText" xml:space="preserve">
-    <value>Honderden Oekraïners uit Meppel en andere gemeenten in Drenthe kunnen uiterlijk tot 1 juli 2026 in GooMeppelUkraine wonen. Bijna 250 speciaal ingerichte kamers worden via het regionale coördinatiepunt toegewezen in afstemming met de gemeente Meppel, die de definitieve toestemming geeft. Vragen? Neem contact op met de opvanglocatie in je eigen gemeente.</value>
+    <value>Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok Nog een tekstblok </value>
   </data>
   <data name="Section_Stats" xml:space="preserve">
     <value>Onze statistieken</value>
@@ -148,6 +148,6 @@
     <value>Onze team</value>
   </data>
   <data name="Section_Partners" xml:space="preserve">
-    <value>Samenwerkende Partners</value>
+    <value>Onze Partners</value>
   </data>
 </root>

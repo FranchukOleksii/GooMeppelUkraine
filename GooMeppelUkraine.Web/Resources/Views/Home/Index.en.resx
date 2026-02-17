@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Mayor_Name" xml:space="preserve">
-    <value>Arjen Maathuis</value>
+    <value>First name Last name</value>
   </data>
   <data name="Mayor_Title" xml:space="preserve">
-    <value>Mayor of Meppel</value>
+    <value>Position</value>
   </data>
   <data name="Hero_Title" xml:space="preserve">
-    <value>Long-term shelter for Ukrainian refugees</value>
+    <value>Main title</value>
   </data>
   <data name="Intro_P1" xml:space="preserve">
-    <value>GooMeppelUkraine is a temporary district in the municipality of Meppel where up to 700 Ukrainians who fled the war can live until mid-2026. A few months after the war started, we began transforming the former “Isala” hospital building into housing on the outskirts of our city. I am very glad that we can offer people a place to live comfortably, work, and go to school until mid-2026 if needed. GooMeppelUkraine represents the dream of a safe Ukraine without war — a Ukraine with opportunities, prospects, and a positive future.</value>
+    <value>Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text Main text </value>
   </data>
   <data name="Intro_P2" xml:space="preserve">
-    <value>On this website we provide general information about GooMeppelUkraine. (Future) residents can log in to the private section to find relevant information, documents, and answers to their questions.</value>
+    <value>Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text Secondary text </value>
   </data>
   <data name="Section_AboutTitle" xml:space="preserve">
-    <value>About GooMeppelUkraine</value>
+    <value>About web page</value>
   </data>
   <data name="Section_AboutLongTitle" xml:space="preserve">
-    <value>Long-term shelter for Ukrainian refugees</value>
+    <value>Subheading</value>
   </data>
   <data name="Section_AboutText" xml:space="preserve">
-    <value>Hundreds of Ukrainians from Meppel and other municipalities in the Drenthe region can live in GooMeppelUkraine until 1 July 2026 at the latest. Nearly 250 specially equipped rooms are allocated via the regional coordination point for Ukrainian refugees in consultation with the municipality of Meppel, which gives the final approval. If you have questions, please contact the reception centre in your municipality.</value>
+    <value>Another text block Another text block Another text block Another text block Another text block Another text block Another text block Another text block Another text block Another text block Another text block Another text block Another text block Another text block Another text block </value>
   </data>
   <data name="Section_Stats" xml:space="preserve">
     <value>Our statistics</value>
